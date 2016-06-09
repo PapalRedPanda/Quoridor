@@ -11,6 +11,7 @@ namespace Quoridor
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            int firstVar = 1;
         }
     }
 }
