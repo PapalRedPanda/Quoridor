@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quoridor
 {
+    /// <summary>
+    /// runs the game
+    /// </summary>
     class Quoridor
     {
         MainForm mainframe;

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quoridor
 {
+    /// <summary>
+    /// class will contain board data. Data includes pawn and wall placement.
+    /// </summary>
     class Board
     {
     }
