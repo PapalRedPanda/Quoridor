@@ -8,5 +8,12 @@ namespace Quoridor
 {
     class Quoridor
     {
+        MainForm mainframe;
+
+        public Quoridor()
+        {
+            mainframe = new MainForm();
+            mainframe.ShowDialog();
+        }
     }
 }
