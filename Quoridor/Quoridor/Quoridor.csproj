@@ -75,12 +75,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Dungeon_A1.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Behemoth_Test1.png" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Behemoth.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
