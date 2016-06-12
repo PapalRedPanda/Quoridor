@@ -14,7 +14,7 @@ namespace Quoridor
     {
         int occupied = 0; //0 if unoccupied, 1 if player 1, 2 if player 2, 3 if player 3, 4 if player 4
         bool eastWall = false;
-        bool southWall = false;
+        bool southWall = false; // what if the space has no south or east wall? just set it as true maybe?
         string name; //ex: e4 (it's the space's notation)
     }
 }

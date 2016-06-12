@@ -12,6 +12,11 @@ namespace Quoridor
 {
     public partial class MainForm : Form
     {
+
+        int x;
+        int y;
+        Boolean darkSkin;
+
         /// moved main into here because its what I saw in some videos
         static void Main(string[] args)
         {
@@ -25,6 +30,9 @@ namespace Quoridor
         public MainForm()
         {
             InitializeComponent();
+            x = 200;
+            y = 200;
+            darkSkin = false;
         }
 
         /// <summary>
@@ -43,18 +51,49 @@ namespace Quoridor
             Graphics g = e.Graphics;
             // this is how we will draw all of our stuff > g.DrawImage(Properties.Resources.ResourceName, int xPos, int yPos, height, width);
             // to add a resource, go to Project > Quoridor Properties > Resources > Add Resource Drop Down > Add Existing File
-            g.DrawImage(Properties.Resources.Behemoth, canvas.Width / 3, canvas.Height / 3, 100, 100);
+            if (darkSkin)
+            {
+                g.DrawImage(Properties.Resources.BehemothDark, x, y, 200, 200);
+            }
+            else
+            {
+                g.DrawImage(Properties.Resources.Behemoth, x, y, 100, 100);
+            }
             // canvas is the window that it is being drawn on. Only needed for .Width and .Height -> makes drawing stuff easy
         }
 
-        /// <summary>
-        /// processes key presses
-        /// </summary>
-        /// <param name="sender"> leave be </param>
-        /// <param name="e"> leave be </param>
-        private void MainForm_KeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
+        // this will hold all of our key press events
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Up) // UP key
+            {
+                Console.WriteLine("UP");
+                y = y - 100;
+            }
+            else if (e.KeyCode == Keys.Down) // DOWN key
+            {
+                Console.WriteLine("DOWN");
+                y = y + 100;
+            }
+            else if (e.KeyCode == Keys.Left) // LEFT key
+            {
+                Console.WriteLine("LEFT");
+                x = x - 100;
+            }
+            else if (e.KeyCode == Keys.Right) // RIGHT key
+            {
+                Console.WriteLine("RIGHT");
+                x = x + 100;
+            }
+            else if (e.KeyCode == Keys.Enter) // Enter key
+            {
+                darkSkin = !darkSkin;
+            }
+            else if (e.KeyCode == Keys.Shift) // SHIFT key
+            {
 
+            }
+            canvas.Invalidate(); // redraws the screen
         }
     }
 }

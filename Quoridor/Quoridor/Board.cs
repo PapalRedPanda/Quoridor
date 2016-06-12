@@ -29,6 +29,17 @@ namespace Quoridor
     ///     What I was thinking of initially is have the board be a 2D array of Spaces (the object). Spaces will have two boolean fields that relate to the 
     ///     right and bottom portions of the space. True would mean that a wall would occupy that space. When you place a wall, one field will turn from false to true
     ///     on two adjacent spaces
+    ///     
+    /// B - So from your idea I'm imaging the board looking like:
+    ///     
+    ///     [ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]
+    ///      F   F   F   F   F   F   F   F   F
+    ///     [ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]
+    ///      F   F   F   F   F   F   F   F   F
+    ///     ... 6 more times
+    ///     [ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ]F[ ] - How would the last row and last column work?
+    ///     
+    ///     Where the F represents the true/false boolean with all booleans initialized to false.
     /// 
     ///   
     /// B - We may not need a whole 1x81 playerPos array, it may be better to just have two values stored and constantly changed. One for player 1 and 1 for player 2.
