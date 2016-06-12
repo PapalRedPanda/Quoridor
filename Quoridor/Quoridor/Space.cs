@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quoridor
 {
+    /// <summary>
+    ///  B - not sure what you mean by space
+    /// </summary>
     class Space
     {
     }
