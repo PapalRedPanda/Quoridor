@@ -11,10 +11,11 @@ namespace Quoridor
     /// </summary>
     class Quoridor
     {
+        Board gameBoard;
 
         public Quoridor()
         {
-
+            gameBoard = new Board();
         }
     }
 }

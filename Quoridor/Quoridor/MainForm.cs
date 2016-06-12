@@ -22,7 +22,6 @@ namespace Quoridor
             Quoridor quoridorGame = new Quoridor();
         }
         
-        /// errr, not sure what this does but its necessary
         public MainForm()
         {
             InitializeComponent();
@@ -31,8 +30,8 @@ namespace Quoridor
         /// <summary>
         /// not sure exactly what this does either but its necessary
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender"> leave be </param>
+        /// <param name="e"> leave be </param>
         private void MainForm_Load(object sender, EventArgs e)
         {
             
@@ -40,6 +39,20 @@ namespace Quoridor
 
         /// this is where the meat of the graphics will actually go. We will designate what stuff we want on the screen here and upodate it with invalidate() command.
         private void canvas_Paint(object sender, PaintEventArgs e)
+        {
+            Graphics g = e.Graphics;
+            // this is how we will draw all of our stuff > g.DrawImage(Properties.Resources.ResourceName, int xPos, int yPos, height, width);
+            // to add a resource, go to Project > Quoridor Properties > Resources > Add Resource Drop Down > Add Existing File
+            g.DrawImage(Properties.Resources.Behemoth, canvas.Width / 3, canvas.Height / 3, 100, 100);
+            // canvas is the window that it is being drawn on. Only needed for .Width and .Height -> makes drawing stuff easy
+        }
+
+        /// <summary>
+        /// processes key presses
+        /// </summary>
+        /// <param name="sender"> leave be </param>
+        /// <param name="e"> leave be </param>
+        private void MainForm_KeyPress(object sender, System.Windows.Forms.KeyEventArgs e)
         {
 
         }
