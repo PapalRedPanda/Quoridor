@@ -23,13 +23,22 @@ namespace Quoridor
     ///         The third array would conatins all the <> in columns.
     ///         
     ///     The reason for seperating the walls into two arrays is it would be easy to seperate them into player moves horizantally (wall category 1) or player moves vertically (wall category 2)
-    ///     
+    ///   
+    /// 
+    /// T - Ok, I'm not sure I understand everything you said.
+    ///     What I was thinking of initially is have the board be a 2D array of Spaces (the object). Spaces will have two boolean fields that relate to the 
+    ///     right and bottom portions of the space. True would mean that a wall would occupy that space. When you place a wall, one field will turn from false to true
+    ///     on two adjacent spaces
+    /// 
+    ///   
     /// </summary>
     class Board
     {
         int[] playerPos;
         int[] rowWallPos;
         int[] colWallPos;
+
+        Space[,] board = new Space[9, 9]; //This is more what I was thinking, what do you think?
 
         public Board()
         {
