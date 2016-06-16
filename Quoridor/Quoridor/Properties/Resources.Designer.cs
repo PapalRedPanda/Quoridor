@@ -63,6 +63,16 @@ namespace Quoridor.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap BackgroundMainRoom {
+            get {
+                object obj = ResourceManager.GetObject("BackgroundMainRoom", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Behemoth {
             get {
                 object obj = ResourceManager.GetObject("Behemoth", resourceCulture);
@@ -76,6 +86,16 @@ namespace Quoridor.Properties {
         internal static System.Drawing.Bitmap BehemothDark {
             get {
                 object obj = ResourceManager.GetObject("BehemothDark", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Dude {
+            get {
+                object obj = ResourceManager.GetObject("Dude", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

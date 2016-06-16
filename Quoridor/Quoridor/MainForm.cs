@@ -45,8 +45,8 @@ namespace Quoridor
             this.DoubleBuffered = true;
 
             // just default some stuff
-            x = 200;
-            y = 200;
+            x = 0;
+            y = 0;
             velX = 5;
             velY = -2;
             darkSkin = false;
@@ -57,7 +57,7 @@ namespace Quoridor
             tick = new Thread(gameTick);
             tick.Start();
             movement = new Thread(movementThread);
-            movement.Start();
+            //movement.Start();
 
             // form will contain the game and manipulate it. Again, it has to do with how forms are structured. Kinda weird. 
             // Also, we are giving access to the mainForm to quoridorGame. Super weird.
@@ -74,64 +74,7 @@ namespace Quoridor
             
         }
 
-        // this will hold all of our key press events
-        private void MainForm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Up) // UP key
-            {
-                Console.WriteLine("UP");
-            }
-            else if (e.KeyCode == Keys.Down) // DOWN key
-            {
-                Console.WriteLine("DOWN");
-
-            }
-            else if (e.KeyCode == Keys.Left) // LEFT key
-            {
-                Console.WriteLine("LEFT");
-                if (currentDisplay == 1)
-                {
-                    startScreenSelected = (startScreenSelected + 1) % 2;
-                }
-            }
-            else if (e.KeyCode == Keys.Right) // RIGHT key
-            {
-                Console.WriteLine("RIGHT");
-                if (currentDisplay == 1)
-                {
-                    startScreenSelected = (startScreenSelected + 1) % 2;
-                }
-            }
-            else if (e.KeyCode == Keys.Enter) // Enter key
-            {
-                if (currentDisplay == 1)
-                {
-                    switch (startScreenSelected)
-                    {
-                        case 0 : twoPlayerGame = true;
-                            break;
-                        case 1 : twoPlayerGame = false;
-                            break;
-                    }
-                    // move on to action screen
-                    currentDisplay++;
-                }
-            }
-            else if (e.KeyCode == Keys.Shift) // Shift key
-            {
-                if (currentDisplay == 2)
-                {
-                    darkSkin = !darkSkin;
-                }
-            }
-            else if (e.KeyCode == Keys.Escape) // Escape Key
-            {
-                // pretty handy
-                Application.Exit();
-            }
-            // redraws the screen. Tested the water of running a constant reInvalidation every n-milliseconds, 
-            // but it caused a nasty flickering affect so I backed off. 
-        }
+        const int TILESIZE = 63;
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
@@ -163,27 +106,9 @@ namespace Quoridor
             // game screen -- game has been started, all the action happens here
             else if (currentDisplay == 2)
             {
-                // darkSkin enabled?
-                switch (darkSkin)
-                {
-                    // draw the regular skin
-                    case false:
-                        g.DrawImage(Properties.Resources.Behemoth, x, y, 100, 100);
-                        break;
-                    // draw the "darkskin"
-                    case true:
-                        g.DrawImage(Properties.Resources.BehemothDark, x, y, 100, 100);
-                        break;
-                }
-                switch (twoPlayerGame)
-                {
-                    case true:
-                        g.DrawString("Two Player Game", SystemFonts.DefaultFont, Brushes.Black, 100, 100);
-                        break;
-                    case false:
-                        g.DrawString("Four Player Game", SystemFonts.DefaultFont, Brushes.Black, 100, 100);
-                        break;
-                }
+                g.DrawImage(Properties.Resources.BackgroundMainRoom, 0, 0);
+
+                g.DrawImage(Properties.Resources.Dude, 556 + (x * TILESIZE), 50 + (y * TILESIZE));
             }
         }
 
@@ -221,6 +146,81 @@ namespace Quoridor
                 }
                 Thread.Sleep(16);
             }
+        }
+
+        private void MainForm_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up) // UP key
+            {
+                Console.WriteLine("UP");
+                if (currentDisplay == 2 && y > 0)
+                {
+                    y--;
+                }
+            }
+            else if (e.KeyCode == Keys.Down) // DOWN key
+            {
+                Console.WriteLine("DOWN");
+                if (currentDisplay == 2 && y < 8)
+                {
+                    y++;
+                }
+            }
+            else if (e.KeyCode == Keys.Left) // LEFT key
+            {
+                Console.WriteLine("LEFT");
+                if (currentDisplay == 1)
+                {
+                    startScreenSelected = (startScreenSelected + 1) % 2;
+                }
+                else if (currentDisplay == 2 && x > -4)
+                {
+                    x--;
+                }
+            }
+            else if (e.KeyCode == Keys.Right) // RIGHT key
+            {
+                Console.WriteLine("RIGHT");
+                if (currentDisplay == 1)
+                {
+                    startScreenSelected = (startScreenSelected + 1) % 2;
+                }
+                else if (currentDisplay == 2 && x < 4)
+                {
+                    x++;
+                }
+            }
+            else if (e.KeyCode == Keys.Enter) // Enter key
+            {
+                if (currentDisplay == 1)
+                {
+                    switch (startScreenSelected)
+                    {
+                        case 0:
+                            twoPlayerGame = true;
+                            break;
+                        case 1:
+                            twoPlayerGame = false;
+                            break;
+                    }
+                    // move on to action screen
+                    currentDisplay++;
+                }
+            }
+            else if (e.KeyCode == Keys.Shift) // Shift key
+            {
+                if (currentDisplay == 2)
+                {
+                    darkSkin = !darkSkin;
+                }
+            }
+            else if (e.KeyCode == Keys.Escape) // Escape Key
+            {
+                // pretty handy
+                Application.Exit();
+            }
+            // redraws the screen. Tested the water of running a constant reInvalidation every n-milliseconds, 
+            // but it caused a nasty flickering affect so I backed off. 
         }
     }
 }
