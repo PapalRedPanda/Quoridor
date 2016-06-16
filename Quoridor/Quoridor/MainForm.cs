@@ -30,6 +30,9 @@ namespace Quoridor
 
         Thread tick;
         Thread movement;
+        Thread musicthread;
+
+        System.Media.SoundPlayer gameMusic;
 
         /// moved main into here because its what I saw in some videos
         static void Main(string[] args)
@@ -58,6 +61,9 @@ namespace Quoridor
             tick.Start();
             movement = new Thread(movementThread);
             //movement.Start();
+            musicthread = new Thread(playBackgroundMusic);
+
+            gameMusic = new System.Media.SoundPlayer(Properties.Resources.Dungeon1);
 
             // form will contain the game and manipulate it. Again, it has to do with how forms are structured. Kinda weird. 
             // Also, we are giving access to the mainForm to quoridorGame. Super weird.
@@ -205,6 +211,7 @@ namespace Quoridor
                     }
                     // move on to action screen
                     currentDisplay++;
+                    musicthread.Start();
                 }
             }
             else if (e.KeyCode == Keys.Shift) // Shift key
@@ -221,6 +228,11 @@ namespace Quoridor
             }
             // redraws the screen. Tested the water of running a constant reInvalidation every n-milliseconds, 
             // but it caused a nasty flickering affect so I backed off. 
+        }
+
+        private void playBackgroundMusic()
+        {
+            gameMusic.PlayLooping();
         }
     }
 }
