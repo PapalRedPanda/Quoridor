@@ -24,15 +24,17 @@ namespace Quoridor
         Boolean darkSkin;
 
         int currentDisplay;
-        int startScreenSelected;
+        int playerNum;
 
-        Boolean twoPlayerGame;
+        bool twoPlayerGame;
 
         Thread tick;
         Thread movement;
         Thread musicthread;
 
         System.Media.SoundPlayer gameMusic;
+
+        Quoridor quoridorGame;
 
         /// moved main into here because its what I saw in some videos
         static void Main(string[] args)
@@ -54,8 +56,7 @@ namespace Quoridor
             velY = -2;
             darkSkin = false;
             currentDisplay = 1;
-            startScreenSelected = 0;
-            twoPlayerGame = false;
+            twoPlayerGame = true;
 
             tick = new Thread(gameTick);
             tick.Start();
@@ -67,7 +68,7 @@ namespace Quoridor
 
             // form will contain the game and manipulate it. Again, it has to do with how forms are structured. Kinda weird. 
             // Also, we are giving access to the mainForm to quoridorGame. Super weird.
-            Quoridor quoridorGame = new Quoridor(this);
+            quoridorGame = new Quoridor(this);
         }
 
         /// <summary>
@@ -84,6 +85,10 @@ namespace Quoridor
 
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
+            // gets current mouse position
+            Point relativePoint = this.PointToClient(Cursor.Position);
+            mousePositionHandler(relativePoint.X, relativePoint.Y);
+
             // g is our servant whom we command to draw. It only operates within MainForm_Paint method.
             Graphics g = e.Graphics;
 
@@ -91,14 +96,14 @@ namespace Quoridor
             if (currentDisplay == 1)
             {
                 // currently hovering over two player mode
-                if (startScreenSelected == 0)
+                if (playerNum == 0)
                 {
                     // we are asking our servant Mr. G for a golden rectangle at the two coordinates with a certain width and height
                     g.FillRectangle(Brushes.Gold, this.Width / 3, this.Height * (2f / 3f), 190f, 40f);
                 }
 
                 // currently hovering over four player mode
-                else if (startScreenSelected == 1)
+                else if (playerNum == 1)
                 {
                     g.FillRectangle(Brushes.Gold, this.Width * (2f / 3f), this.Height * (2f / 3f), 190f, 40f);
                 }
@@ -128,6 +133,11 @@ namespace Quoridor
                 Invalidate();
                 Thread.Sleep(16);
             }
+        }
+
+        private void mousePositionHandler(int x, int y)
+        {
+            Console.WriteLine(x + " " + y);
         }
 
         /// <summary>
@@ -177,7 +187,7 @@ namespace Quoridor
                 Console.WriteLine("LEFT");
                 if (currentDisplay == 1)
                 {
-                    startScreenSelected = (startScreenSelected + 1) % 2;
+                    twoPlayerGame = !twoPlayerGame;
                 }
                 else if (currentDisplay == 2 && x > -4)
                 {
@@ -189,7 +199,7 @@ namespace Quoridor
                 Console.WriteLine("RIGHT");
                 if (currentDisplay == 1)
                 {
-                    startScreenSelected = (startScreenSelected + 1) % 2;
+                    twoPlayerGame = !twoPlayerGame;
                 }
                 else if (currentDisplay == 2 && x < 4)
                 {
@@ -200,15 +210,7 @@ namespace Quoridor
             {
                 if (currentDisplay == 1)
                 {
-                    switch (startScreenSelected)
-                    {
-                        case 0:
-                            twoPlayerGame = true;
-                            break;
-                        case 1:
-                            twoPlayerGame = false;
-                            break;
-                    }
+                    quoridorGame.TwoPlayerGame = twoPlayerGame;
                     // move on to action screen
                     currentDisplay++;
                     musicthread.Start();

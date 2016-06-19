@@ -50,8 +50,6 @@ namespace Quoridor
     class Board
     {
         int[] playerPos;
-        int[] rowWallPos;
-        int[] colWallPos;
 
         // number of positions in each wall array 
         const int wallPosNum = 72;
@@ -61,27 +59,8 @@ namespace Quoridor
         /// </summary>
         Space[,] board = new Space[9, 9]; //This is more what I was thinking, what do you think?
 
-        public Board()
+        public Board( bool twoPlayerGame )
         {
-            // intiialize all arrays to be full of 0s
-            playerPos = new int[2];
-            for (int i = 0; i < playerPos.Length; i++)
-            {
-                playerPos[i] = 0;
-            }
-
-            rowWallPos = new int[wallPosNum];
-            for (int i = 0; i < rowWallPos.Length; i++)
-            {
-                rowWallPos[i] = 0;
-            }
-
-            colWallPos = new int[wallPosNum];
-            for (int i = 0; i < colWallPos.Length; i++)
-            {
-                colWallPos[i] = 0;
-            }
-
             //Create all the spaces in the board
             for(int i = 0; i < 9; i++)
             {
@@ -94,33 +73,12 @@ namespace Quoridor
             }
         }
 
-        /// <summary>
-        /// place a wall in the 
-        /// </summary>
-        /// <param name="wallType"> 0 for row wall, 1 for column wall </param>
-        /// <param name="position"> position of wall </param>
-        /// <returns> 0 for success and 1 for fail </returns>
-        public int placeWall(int wallType, int position)
-        {
-            if (wallType == 0 && position < wallPosNum)
-            {
-                rowWallPos[position] = 1;
-                return 0;
-            }
-            else if (wallType == 1 && position < wallPosNum)
-            {
-                colWallPos[position] = 1;
-                return 0;
-            }
-            return 1;
-        }
-
         //Just like the Quoridor wikipedia article, each wall placed is given a square (row and column) and an orientation (h/v)
         //the row/col is determined by the space to the top-left of the wall being placed
         //        >[]|[] >[][]    the arrow is pointing to the space that corresponds to that wall (left one is vertical, right one is horizontal)
         //         []|[]  ----
         //                [][] 
-        public void placeWall2(bool horizontal, int row, int col)
+        public void placeWall(bool horizontal, int row, int col)
         {
             if (row < 8 && col < 8)
             {
