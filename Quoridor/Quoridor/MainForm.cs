@@ -24,7 +24,6 @@ namespace Quoridor
         Boolean darkSkin;
 
         int currentDisplay;
-        int playerNum;
 
         bool twoPlayerGame;
 
@@ -96,14 +95,14 @@ namespace Quoridor
             if (currentDisplay == 1)
             {
                 // currently hovering over two player mode
-                if (playerNum == 0)
+                if (twoPlayerGame)
                 {
                     // we are asking our servant Mr. G for a golden rectangle at the two coordinates with a certain width and height
                     g.FillRectangle(Brushes.Gold, this.Width / 3, this.Height * (2f / 3f), 190f, 40f);
                 }
 
                 // currently hovering over four player mode
-                else if (playerNum == 1)
+                else if (!twoPlayerGame)
                 {
                     g.FillRectangle(Brushes.Gold, this.Width * (2f / 3f), this.Height * (2f / 3f), 190f, 40f);
                 }
