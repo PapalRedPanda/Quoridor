@@ -12,7 +12,8 @@ namespace Quoridor
         int playerNumber; //0: plr1, 1:plr2, 2:plr3, 3:plr4 (There can only be 2 or 4 players in a game)
         string name; //name of the player
 
-        //Properties. To access the Player fields, instead just use the capitalized versions of the fields as normal variables
+        //Properties
+        //To access the Player fields, instead just use the capitalized versions of the fields as normal variables
         //I made it so only the walls can be changed because your name and player number isn't going to change mid-game
         public int Walls
         {

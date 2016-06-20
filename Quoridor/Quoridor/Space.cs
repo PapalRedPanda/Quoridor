@@ -25,6 +25,35 @@ namespace Quoridor
         bool eastmostSpace; //true if this space is on the rightmost column on the board. If so, eastWall will always be false
         string name; //ex: e4 (it's the space's notation)
 
+        //Properties
+        //Occupied needs to be changed outside of Space class to account for the movement of the players
+        int Occupied
+        {
+            get { return occupied; }
+            set { occupied = value; }
+        }
+        //These properties don't need to be changed outside of this class (outside of the constructor and AddWall() )
+        bool EastWall
+        {
+            get { return eastWall; }
+        }
+        bool SouthWall
+        {
+            get { return southWall; }
+        }
+        bool SouthmostSpace
+        {
+            get { return southmostSpace; }
+        }
+        bool EastmostSpace
+        {
+            get { return eastmostSpace; }
+        }
+        string Name
+        {
+            get { return name; }
+        }
+
         //A basic call to the constructor with no arguments will result in a space that isn't on the bottommost row or rightmost collumn
         //and the space will be unoccupied without walls to the south or east of it
         public Space(bool east = false, bool south = false, int occupied = 0)

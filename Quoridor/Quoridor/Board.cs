@@ -9,24 +9,7 @@ namespace Quoridor
     /// <summary>
     /// class will contain board data. Data includes pawn and wall placement.
     /// 
-    /// B - I have an idea to store the board as three different types of 1D arrays.
-    ///     1. The first array would be a 9x9 array to store player positions. We could easily flatten it into a 1x81
-    ///     2. The second array would be an 8x9 (or 1x72) array to store one category of walls.
-    ///         > if possible player positions are [] and wall positions are <> then each row will look like []<>[]<>[]<>[]<>[]<>[]<>[]<>[]<>[]
-    ///         The array would store all the possible values of <>
-    ///     3. The third array would be a 9x8 (or 1x72) array to store the other category of walls.
-    ///         > each column looks like
-    ///         []
-    ///         <>
-    ///         []
-    ///         ...
-    ///         The third array would conatins all the <> in columns.
-    ///         
-    ///     The reason for seperating the walls into two arrays is it would be easy to seperate them into player moves horizantally (wall category 1) or player moves vertically (wall category 2)
-    ///     
-    /// 
-    /// T - Ok, I'm not sure I understand everything you said.
-    ///     What I was thinking of initially is have the board be a 2D array of Spaces (the object). Spaces will have two boolean fields that relate to the 
+    ///     T- What I was thinking of initially is have the board be a 2D array of Spaces (the object). Spaces will have two boolean fields that relate to the 
     ///     right and bottom portions of the space. True would mean that a wall would occupy that space. When you place a wall, one field will turn from false to true
     ///     on two adjacent spaces
     ///     
@@ -49,15 +32,15 @@ namespace Quoridor
     /// </summary>
     class Board
     {
-        int[] playerPos;
+        int[] playerPos; //Is this still needed? Each space has a an occupied field that keeps track of the players' positions
 
         // number of positions in each wall array 
-        const int wallPosNum = 72;
+        const int wallPosNum = 72; //Is this still needed also?
 
         /// <summary>
         /// initializes the board
         /// </summary>
-        Space[,] board = new Space[9, 9]; //This is more what I was thinking, what do you think?
+        Space[,] board = new Space[9, 9];
 
         public Board( bool twoPlayerGame )
         {
@@ -78,6 +61,8 @@ namespace Quoridor
         //        >[]|[] >[][]    the arrow is pointing to the space that corresponds to that wall (left one is vertical, right one is horizontal)
         //         []|[]  ----
         //                [][] 
+        //horizontal: true->horizontal wall, false->vertical wall
+        //row and col: coordinates for the wall-defining space
         public void placeWall(bool horizontal, int row, int col)
         {
             if (row < 8 && col < 8)
@@ -93,8 +78,17 @@ namespace Quoridor
                 }
             }
         }
-        // get wall arrays methods
 
-        // set wall arrays methods
+        //This allows things like this to happen:
+        //Board board = new Board();
+        //board[3,4].AddWall(true);
+        //board[2,5].Occupied = 0;
+        Space this[int row, int col]
+        {
+            get
+            {
+                return board[row, col];
+            }
+        }
     }
 }
