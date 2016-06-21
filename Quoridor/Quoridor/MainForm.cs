@@ -36,6 +36,8 @@ namespace Quoridor
 
         Quoridor quoridorGame;
 
+        Point cursorLocation;
+
         /// moved main into here because its what I saw in some videos
         static void Main(string[] args)
         {
@@ -86,8 +88,8 @@ namespace Quoridor
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             // gets current mouse position
-            Point relativePoint = PointToClient(Cursor.Position);
-            mousePositionHandler(relativePoint.X, relativePoint.Y);
+            cursorLocation = PointToClient(Cursor.Position);
+            mousePositionHandler(cursorLocation.X, cursorLocation.Y);
 
             // Another Idea for interacting with GUI is to have it be mouse controlled. When mouse hovers over a rectangle that is clickable, it will highlight in gold.
             // The issue here would be how we know we know which rectangles to check. 
@@ -139,9 +141,26 @@ namespace Quoridor
             }
         }
 
+        /// <summary>
+        /// Handles events dealing with current cursor placement
+        /// Cursor always beats keystroke
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
         private void mousePositionHandler(int x, int y)
         {
-            Console.WriteLine(x + " " + y);
+            // adds cursor functionality to start menu
+            if (currentDisplay == 1)
+            {
+                if (x > Width / 3 && x < (Width / 3) + 190 && y > Height * (2f / 3f) && y < Height * (2f / 3f) + 40)
+                {
+                    twoPlayerGame = true;
+                }
+                if (x > Width * (2f / 3f) && x < (Width * (2f / 3f)) + 190 && y > Height * (2f / 3f) && y < Height * (2f / 3f) + 40)
+                {
+                    twoPlayerGame = false;
+                }
+            }
         }
 
         /// <summary>
