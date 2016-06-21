@@ -207,6 +207,23 @@ namespace Quoridor
                     x++;
                 }
             }
+            else if(e.KeyCode == Keys.W) //W key
+            {
+                Console.WriteLine("W");
+                if(currentDisplay == 2)
+                {
+                    //if the current player has at least one wall left:
+                    //maybe call a method that does:
+                    //places a flashing wall at the top left of the board
+                    //pressing 'r' rotates the wall
+                    //you can use the arrow keys to move the flashing wall around
+                    //as it moves, it turns red if the position is invalid, green in valid (if there is already a wall there)
+                    //you aren't allowed to move the wall into a position that is off the board in any way
+                    //pressing enter in a valid location places the wall there (we have to keep in mind placing rules
+                    //with being no walls placed in such a way that completely blocks a player off from getting accross.)
+                    //The current player subtracts one wall
+                }
+            }
             else if (e.KeyCode == Keys.Enter) // Enter key
             {
                 if (currentDisplay == 1)

@@ -15,6 +15,7 @@ namespace Quoridor
         Player[] players;
         MainForm mainForm;
         bool twoPlayerGame;
+        Player currentPlayer;
 
         //Constructor
         public Quoridor(MainForm hackTheMainframe)
@@ -52,6 +53,7 @@ namespace Quoridor
                         break;
                 }
                 gameBoard = new Board(twoPlayerGame);
+                currentPlayer = players[0];
             }
         }
     }
