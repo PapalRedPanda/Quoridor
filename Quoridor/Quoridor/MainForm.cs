@@ -89,6 +89,9 @@ namespace Quoridor
             Point relativePoint = PointToClient(Cursor.Position);
             mousePositionHandler(relativePoint.X, relativePoint.Y);
 
+            // Another Idea for interacting with GUI is to have it be mouse controlled. When mouse hovers over a rectangle that is clickable, it will highlight in gold.
+            // The issue here would be how we know we know which rectangles to check. 
+
             // g is our servant whom we command to draw. It only operates within MainForm_Paint method.
             Graphics g = e.Graphics;
 
