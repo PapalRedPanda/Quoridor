@@ -92,7 +92,9 @@ namespace Quoridor
             mousePositionHandler(cursorLocation.X, cursorLocation.Y);
 
             // Another Idea for interacting with GUI is to have it be mouse controlled. When mouse hovers over a rectangle that is clickable, it will highlight in gold.
-            // The issue here would be how we know we know which rectangles to check. 
+            // The issue here would be how we know we know which rectangles to check.
+            // Could add another variable to space -> x and y locations. 
+            // With constant sizes for player space and wall space, we could know exactly which player space or wall is being hovered over.
 
             // g is our servant whom we command to draw. It only operates within MainForm_Paint method.
             Graphics g = e.Graphics;
