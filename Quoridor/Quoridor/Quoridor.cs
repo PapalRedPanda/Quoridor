@@ -21,16 +21,12 @@ namespace Quoridor
         public Quoridor(MainForm hackTheMainframe)
         {
             mainForm = hackTheMainframe;
-            //At this point, we need to get how many players are playing (2 or 4).
-            //In my previous experience, I would just do this within the console (Console.ReadLine())
-            //But it may have to be done differently now that we are doing GUI. After we get that information,
-            //we can create the player objects with names and put them in the array "players".
         }
 
         public bool TwoPlayerGame
         {
             get { return twoPlayerGame; }
-            set
+            set //used once per game to set up the players and create the board
             {
                 twoPlayerGame = value;
                 switch (twoPlayerGame)
@@ -40,7 +36,6 @@ namespace Quoridor
                         for (int i = 0; i < 2; i++)
                         {
                             players[i] = new Player("Player " + i, i + 1, twoPlayerGame);
-                            //players[i].Walls = 10;  This is done automatically in the Player Constructor
                         }
                         break;
                     case false:
@@ -48,7 +43,6 @@ namespace Quoridor
                         for (int i = 0; i < 4; i++)
                         {
                             players[i] = new Player("Player ", i + 1, twoPlayerGame);
-                            //players[i].Walls = 10; This is done automatically in the Player Constructor
                         }
                         break;
                 }
