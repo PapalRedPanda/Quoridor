@@ -13,15 +13,16 @@ namespace Quoridor
 {
     public partial class MainForm : Form
     {
-        // the position of the behemoth on the window
+        // the position of the behemoth on the window T- Is this still needed?
         int x;
         int y;
 
+        //Are these still needed?
         int velX;
         int velY;
 
         // the picture displayed in 
-        Boolean darkSkin;
+        bool darkSkin; //Still needed?
 
         int currentDisplay;
 
@@ -46,7 +47,7 @@ namespace Quoridor
         {
             InitializeComponent();
 
-            this.DoubleBuffered = true;
+            DoubleBuffered = true;
 
             // just default some stuff
             x = 0;
@@ -85,7 +86,7 @@ namespace Quoridor
         private void MainForm_Paint(object sender, PaintEventArgs e)
         {
             // gets current mouse position
-            Point relativePoint = this.PointToClient(Cursor.Position);
+            Point relativePoint = PointToClient(Cursor.Position);
             mousePositionHandler(relativePoint.X, relativePoint.Y);
 
             // g is our servant whom we command to draw. It only operates within MainForm_Paint method.
@@ -98,24 +99,25 @@ namespace Quoridor
                 if (twoPlayerGame)
                 {
                     // we are asking our servant Mr. G for a golden rectangle at the two coordinates with a certain width and height
-                    g.FillRectangle(Brushes.Gold, this.Width / 3, this.Height * (2f / 3f), 190f, 40f);
+                    g.FillRectangle(Brushes.Gold, Width / 3, Height * (2f / 3f), 190f, 40f);
                 }
 
                 // currently hovering over four player mode
                 else if (!twoPlayerGame)
                 {
-                    g.FillRectangle(Brushes.Gold, this.Width * (2f / 3f), this.Height * (2f / 3f), 190f, 40f);
+                    g.FillRectangle(Brushes.Gold, Width * (2f / 3f), Height * (2f / 3f), 190f, 40f);
                 }
 
                 // ask Mr. G to draw some text for us. Because we make the request after the rectangles are drawn above, they will become the top layer
-                g.DrawString("Quoridor", SystemFonts.MenuFont, Brushes.Black, this.Width / 2 - 100, this.Height / 3);
-                g.DrawString("Two Players", SystemFonts.MenuFont, Brushes.Black, this.Width / 3f, this.Height * (2f / 3f));
-                g.DrawString("Four Players", SystemFonts.MenuFont, Brushes.Black, this.Width * (2f / 3f), this.Height * (2f / 3f));
+                g.DrawString("Quoridor", SystemFonts.MenuFont, Brushes.Black, Width / 2 - 100, Height / 3);
+                g.DrawString("Two Players", SystemFonts.MenuFont, Brushes.Black, Width / 3f, Height * (2f / 3f));
+                g.DrawString("Four Players", SystemFonts.MenuFont, Brushes.Black, Width * (2f / 3f), Height * (2f / 3f));
             }
 
             // game screen -- game has been started, all the action happens here
             else if (currentDisplay == 2)
             {
+                quoridorGame.TwoPlayerGame = twoPlayerGame;
                 g.DrawImage(Properties.Resources.BackgroundMainRoom, 0, 0);
 
                 g.DrawImage(Properties.Resources.Dude, 556 + (x * TILESIZE), 50 + (y * TILESIZE));
@@ -142,7 +144,7 @@ namespace Quoridor
         /// <summary>
         /// Boasting my animating talent :P
         /// </summary>
-        private void movementThread()
+        private void movementThread() //Do we still need this here?
         {
             while(true)
             {

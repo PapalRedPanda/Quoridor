@@ -39,7 +39,7 @@ namespace Quoridor
                         for (int i = 0; i < 2; i++)
                         {
                             players[i] = new Player("Player " + i, i + 1, twoPlayerGame);
-                            players[i].Walls = 10;
+                            //players[i].Walls = 10;  This is done automatically in the Player Constructor
                         }
                         break;
                     case false:
@@ -47,7 +47,7 @@ namespace Quoridor
                         for (int i = 0; i < 4; i++)
                         {
                             players[i] = new Player("Player ", i + 1, twoPlayerGame);
-                            players[i].Walls = 10;
+                            //players[i].Walls = 10; This is done automatically in the Player Constructor
                         }
                         break;
                 }

@@ -83,7 +83,7 @@ namespace Quoridor
         //Board board = new Board();
         //board[3,4].AddWall(true);
         //board[2,5].Occupied = 0;
-        Space this[int row, int col]
+        public Space this[int row, int col]
         {
             get
             {

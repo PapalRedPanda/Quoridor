@@ -27,29 +27,29 @@ namespace Quoridor
 
         //Properties
         //Occupied needs to be changed outside of Space class to account for the movement of the players
-        int Occupied
+        public int Occupied
         {
             get { return occupied; }
             set { occupied = value; }
         }
         //These properties don't need to be changed outside of this class (outside of the constructor and AddWall() )
-        bool EastWall
+        public bool EastWall
         {
             get { return eastWall; }
         }
-        bool SouthWall
+        public bool SouthWall
         {
             get { return southWall; }
         }
-        bool SouthmostSpace
+        public bool SouthmostSpace
         {
             get { return southmostSpace; }
         }
-        bool EastmostSpace
+        public bool EastmostSpace
         {
             get { return eastmostSpace; }
         }
-        string Name
+        public string Name
         {
             get { return name; }
         }
