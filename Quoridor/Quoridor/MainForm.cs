@@ -17,7 +17,11 @@ namespace Quoridor
         bool darkSkin; //Still needed?
 
         int currentDisplay;
-        int tileSize;
+
+        const int TILEWIDTH = 110; // also change in quoridor.cs
+        const int TILEHEIGHT = 70; // also change in quoridor.cs
+        const int bottomWallHeight = 25;
+        const int rightWallWidth = 30;
 
         bool twoPlayerGame;
 
@@ -119,7 +123,24 @@ namespace Quoridor
                 {
                     for (int j = 0; j < 9; j++)
                     {
-                        g.DrawRectangle(Pens.Black, quoridorBoard[i, j].Location.X, quoridorBoard[i, j].Location.Y, tileSize, tileSize);
+                        // tile top right locations
+                        int xLoc = quoridorBoard[i, j].Location.X;
+                        int yLoc = quoridorBoard[i, j].Location.Y;
+
+                        if (i != 8)
+                        {
+                            // right wall space
+                            g.DrawRectangle(Pens.Black, xLoc + TILEWIDTH - rightWallWidth, yLoc, rightWallWidth, TILEHEIGHT - bottomWallHeight);
+                        }
+
+                        if (j != 8)
+                        {
+                            // bottom wall space
+                            g.DrawRectangle(Pens.Black, xLoc, yLoc + TILEHEIGHT - bottomWallHeight, TILEWIDTH - rightWallWidth, bottomWallHeight);
+                        }
+
+                        // player space
+                        g.DrawRectangle(Pens.Black, xLoc, yLoc, TILEWIDTH - rightWallWidth, TILEHEIGHT - bottomWallHeight);
                     }
                 }
             }
