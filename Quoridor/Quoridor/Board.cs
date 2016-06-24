@@ -32,11 +32,6 @@ namespace Quoridor
     /// </summary>
     class Board
     {
-        int[] playerPos; //Is this still needed? Each space has a an occupied field that keeps track of the players' positions
-
-        // number of positions in each wall array 
-        const int wallPosNum = 72; //Is this still needed also?
-
         /// <summary>
         /// initializes the board
         /// </summary>

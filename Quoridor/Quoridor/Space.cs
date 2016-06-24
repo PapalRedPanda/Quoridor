@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Drawing;
 
 namespace Quoridor
 {
@@ -19,6 +20,7 @@ namespace Quoridor
     class Space
     {
         int occupied; //0 if unoccupied, 1 if player 1, 2 if player 2, 3 if player 3, 4 if player 4
+        Point location;
         bool eastWall = false;  //true if there is a wall in the interstice directly east of this space on the board
         bool southWall = false; //true if there is a wall in the interstice directly south of this space on the board
         bool southmostSpace; //true if this space is on the bottommost row on the board. If so, southWall will always be false
@@ -31,6 +33,11 @@ namespace Quoridor
         {
             get { return occupied; }
             set { occupied = value; }
+        }
+        public Point Location
+        {
+            get { return location; }
+            set { location = value; }
         }
         //These properties don't need to be changed outside of this class (outside of the constructor and AddWall() )
         public bool EastWall

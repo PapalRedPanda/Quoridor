@@ -13,18 +13,11 @@ namespace Quoridor
 {
     public partial class MainForm : Form
     {
-        // the position of the behemoth on the window T- Is this still needed?
-        int x;
-        int y;
-
-        //Are these still needed?
-        int velX;
-        int velY;
-
         // the picture displayed in 
         bool darkSkin; //Still needed?
 
         int currentDisplay;
+        int tileSize;
 
         bool twoPlayerGame;
 
@@ -37,6 +30,8 @@ namespace Quoridor
         Quoridor quoridorGame;
 
         Point cursorLocation;
+
+        Board quoridorBoard;
 
         /// moved main into here because its what I saw in some videos
         static void Main(string[] args)
@@ -52,17 +47,11 @@ namespace Quoridor
             DoubleBuffered = true;
 
             // just default some stuff
-            x = 0;
-            y = 0;
-            velX = 5;
-            velY = -2;
-            darkSkin = false;
             currentDisplay = 1;
             twoPlayerGame = true;
 
             tick = new Thread(gameTick);
             tick.Start();
-            movement = new Thread(movementThread);
             //movement.Start();
             musicthread = new Thread(playBackgroundMusic);
 
@@ -71,6 +60,7 @@ namespace Quoridor
             // form will contain the game and manipulate it. Again, it has to do with how forms are structured. Kinda weird. 
             // Also, we are giving access to the mainForm to quoridorGame. Super weird.
             quoridorGame = new Quoridor(this);
+            quoridorBoard = quoridorGame.GameBoard;
         }
 
         /// <summary>
@@ -90,6 +80,8 @@ namespace Quoridor
             // gets current mouse position
             cursorLocation = PointToClient(Cursor.Position);
             mousePositionHandler(cursorLocation.X, cursorLocation.Y);
+
+            quoridorBoard = quoridorGame.GameBoard;
 
             // Another Idea for interacting with GUI is to have it be mouse controlled. When mouse hovers over a rectangle that is clickable, it will highlight in gold.
             // The issue here would be how we know we know which rectangles to check.
@@ -120,14 +112,16 @@ namespace Quoridor
                 g.DrawString("Two Players", SystemFonts.MenuFont, Brushes.Black, Width / 3f, Height * (2f / 3f));
                 g.DrawString("Four Players", SystemFonts.MenuFont, Brushes.Black, Width * (2f / 3f), Height * (2f / 3f));
             }
-
-            // game screen -- game has been started, all the action happens here
+            // !!!! testing tile placement !!!!
             else if (currentDisplay == 2)
             {
-                quoridorGame.TwoPlayerGame = twoPlayerGame;
-                g.DrawImage(Properties.Resources.BackgroundMainRoom, 0, 0);
-
-                g.DrawImage(Properties.Resources.Dude, 556 + (x * TILESIZE), 50 + (y * TILESIZE));
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        g.DrawRectangle(Pens.Black, quoridorBoard[i, j].Location.X, quoridorBoard[i, j].Location.Y, tileSize, tileSize);
+                    }
+                }
             }
         }
 
@@ -165,47 +159,15 @@ namespace Quoridor
             }
         }
 
-        /// <summary>
-        /// Boasting my animating talent :P
-        /// </summary>
-        private void movementThread() //Do we still need this here?
-        {
-            while(true)
-            {
-                if (currentDisplay == 2)
-                {
-                    x = x + velX;
-                    if (x < 100 || x > 1000)
-                    {
-                        velX = velX * -1;
-                    }
-                    y = y + velY;
-                    if (y < 100 || y > 500)
-                    {
-                        velY = velY * -1;
-                    }
-                }
-                Thread.Sleep(16);
-            }
-        }
-
         private void MainForm_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Up) // UP key
             {
                 Console.WriteLine("UP");
-                if (currentDisplay == 2 && y > 0)
-                {
-                    y--;
-                }
             }
             else if (e.KeyCode == Keys.Down) // DOWN key
             {
                 Console.WriteLine("DOWN");
-                if (currentDisplay == 2 && y < 8)
-                {
-                    y++;
-                }
             }
             else if (e.KeyCode == Keys.Left) // LEFT key
             {
@@ -214,10 +176,6 @@ namespace Quoridor
                 {
                     twoPlayerGame = !twoPlayerGame;
                 }
-                else if (currentDisplay == 2 && x > -4)
-                {
-                    x--;
-                }
             }
             else if (e.KeyCode == Keys.Right) // RIGHT key
             {
@@ -225,10 +183,6 @@ namespace Quoridor
                 if (currentDisplay == 1)
                 {
                     twoPlayerGame = !twoPlayerGame;
-                }
-                else if (currentDisplay == 2 && x < 4)
-                {
-                    x++;
                 }
             }
             else if(e.KeyCode == Keys.W) //W key
@@ -255,7 +209,7 @@ namespace Quoridor
                     quoridorGame.TwoPlayerGame = twoPlayerGame;
                     // move on to action screen
                     currentDisplay++;
-                    musicthread.Start();
+                    //musicthread.Start();
                 }
             }
             else if (e.KeyCode == Keys.Shift) // Shift key

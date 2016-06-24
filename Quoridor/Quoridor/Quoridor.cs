@@ -16,11 +16,18 @@ namespace Quoridor
         MainForm mainForm;
         bool twoPlayerGame;
         Player currentPlayer;
+        int tileSize;
 
         //Constructor
         public Quoridor(MainForm hackTheMainframe)
         {
             mainForm = hackTheMainframe;
+            tileSize = 60;
+        }
+
+        public Board GameBoard
+        {
+            get{ return gameBoard; }
         }
 
         public bool TwoPlayerGame
@@ -47,6 +54,15 @@ namespace Quoridor
                         break;
                 }
                 gameBoard = new Board(twoPlayerGame);
+                // set locations of tiles
+                for (int i = 0; i < 9; i++)
+                {
+                    for (int j = 0; j < 9; j++)
+                    {
+                        gameBoard[i, j].Location = new System.Drawing.Point(100 + (i * tileSize), j * tileSize);
+                        Console.WriteLine("Location: " + gameBoard[i, j].Location.X + "," + gameBoard[i, j].Location.Y);
+                    }
+                }
                 currentPlayer = players[0];
             }
         }
